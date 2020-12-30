@@ -1,0 +1,18 @@
+[package]
+name = "yare"
+description = "More parameterized testing for Rust 💖"
+authors = ["Martijn Gribnau <garm@ilumeo.com>"]
+version = "1.0.0"
+license = "MIT OR Apache-2.0"
+edition = "2018"
+documentation = "https://docs.rs/crate/yare"
+repository = "https://github.com/foresterre/workshop/yare"
+readme = "README.md"
+keywords = ["parameterized", "parametrized", "test", "unit-test", "workshop"]
+categories = ["development-tools", "development-tools::testing"]
+
+[dependencies]
+yare-macro = { path = "yare-macro", version = "1.0.0" }
+
+[workspace]
+members = ["yare-macro"]
