@@ -1,12 +1,12 @@
 [package]
 name = "yare-macro"
-version = "1.0.0"
+version = "1.0.1"
 authors = ["Martijn Gribnau <garm@ilumeo.com>"]
 edition = "2018"
 license = "MIT OR Apache-2.0"
 description = "Attribute macro crate for the Yare parameterized tests library."
 documentation = "https://docs.rs/crate/yare-macro"
-repository = "https://github.com/foresterre/workshop/yare"
+repository = "https://github.com/foresterre/yare"
 readme = "readme.md"
 keywords = ["parameterized", "attribute", "test", "unit-test", "workshop"]
 categories = ["development-tools", "development-tools::testing"]
