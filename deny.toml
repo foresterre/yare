@@ -1,0 +1,36 @@
+[advisories]
+db-urls = ["https://github.com/rustsec/advisory-db"]
+
+vulnerability = "deny"
+unmaintained = "warn"
+yanked = "warn"
+notice = "warn"
+ignore = [
+    #"RUSTSEC-0000-0000",
+]
+
+[licenses]
+# The lint level for crates which do not have a detectable license
+unlicensed = "deny"
+# List of explictly allowed licenses
+allow = [
+    "MIT",
+    "Apache-2.0",
+]
+
+# Lint level for licenses considered copyleft
+copyleft = "deny"
+default = "deny"
+confidence-threshold = 0.925
+
+[bans]
+multiple-versions = "warn"
+wildcards = "warn"
+highlight = "all"
+
+[sources]
+unknown-registry = "warn"
+unknown-git = "warn"
+
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+allow-git = []
