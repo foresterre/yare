@@ -11,6 +11,8 @@ on:
     branches:
       - master
       - main
+  schedule:
+    - cron: '00 07 * * 0-5'
 env:
   CI: 1
 jobs:
