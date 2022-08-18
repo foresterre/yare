@@ -1,4 +1,4 @@
-//! For additional docs see [here](https://docs.rs/crate/yare) :).
+#![doc = include_str!("../README.md")]
 
 extern crate yare_macro as yare;
 
