@@ -18,8 +18,6 @@ fn add5<T: Into<u32>>(component: T) -> u32 {
 mod tests {
     use super::*;
     use yare::parameterized;
-
-    ide!();
     
     #[parameterized(
         zero_plus_five = { 0, 5 },
@@ -94,50 +92,6 @@ the following snippet at the top of your crate root:
 #[macro_use]
 extern crate yare;
 ```
-
-### IDE 'run test' intent
-
-IntelliJ IDEA recognizes test cases and provides context menus which allow you to run tests within a certain scope
-(such as a module or a single test case). For example, in IntelliJ you can usually run individual test cases by clicking
-the ▶ icon in the gutter. Unfortunately, attribute macros are currently not expanded by `intellij-rust`.
-This means that the IDE will not recognize test cases generated as a result of attribute macros (such as the
-`yare` macro published by this crate). 
-
-A workaround can be found below (if you have a better solution, please feel free to open an issue; thank you in advance!)
-
-```rust
-fn squared(input: i8) -> i8 {
-  input * input  
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    use yare::parameterized as pm;
-    use yare::ide;
-        
-    mod squared_tests { // <--
-        use super::*;
-
-        ide!(); // <--
-    
-        #[pm(
-            two_squared = {2, 4}
-        )]
-        fn test_squared(input: i8, output: i8) {
-            assert_eq!(squared(input), output);
-        }
-    }
-}
-```
-
-Here we created an empty test case (using the `ide!()` macro) which will mark the surrounding module as 'containing test cases'. In
-the gutter you will find the ▶ icon next to the module. This allows you to run test cases per module.
-
-Note: `intellij-rust` does expand declarative macro's (with the new macro engine which can be
-selected in the 'settings' menu), such as this `ide!` macro.
-
 
 ### License
 
