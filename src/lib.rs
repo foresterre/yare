@@ -15,6 +15,8 @@ pub use yare::parameterized;
 /// Using the intellij-rust new macro expansion engine, if this macro is called within a module,
 /// the module will be marked as test, and the 'run as test' context menu will be provided in the
 /// gutter.
+#[doc(hidden)]
+#[deprecated]
 #[macro_export]
 macro_rules! ide {
     () => {
@@ -37,8 +39,6 @@ mod tests {
     mod readme_test {
         use super::*;
 
-        ide!();
-
         #[pm(zero = {
             0, 5
         }, one = {
@@ -54,8 +54,6 @@ mod tests {
     mod marked_as_test_module {
         use super::*;
 
-        ide!();
-
         #[pm(two = { 2, 4 }, six = { 6, 12 }, eight = { 8, 16 })]
         fn test_times2(input: i32, output: i32) {
             let times2 = |receiver: i32| receiver * 2;
@@ -66,8 +64,6 @@ mod tests {
 
     mod transitive_attrs {
         use super::*;
-
-        ide!();
 
         #[pm(none = { None })]
         #[should_panic]
