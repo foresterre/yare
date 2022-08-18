@@ -4,7 +4,7 @@
 # https://github.com/BurntSushi/bstr/blob/master/.github/workflows/ci.yml
 # `bstr` is licensed under Apache License, Version 2.0 or MIT license
 
-name: "github_actions_ci"
+name: "ci-tests"
 on:
   pull_request:
   push:
@@ -22,12 +22,8 @@ jobs:
     continue-on-error: true
     strategy:
       matrix:
-        build: [msrv, stable, macos, win-gnu, win-msvc]
+        build: [stable, macos, win-gnu, win-msvc]
         include:
-          - build: msrv
-            os: ubuntu-latest
-            rust: 1.42.0
-
           - build: stable
             os: ubuntu-latest
             rust: stable

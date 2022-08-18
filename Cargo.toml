@@ -11,6 +11,9 @@ readme = "README.md"
 keywords = ["parameterized", "parametrized", "test", "unit-test", "workshop"]
 categories = ["development-tools", "development-tools::testing"]
 
+[package.metadata]
+msrv = "1.38"
+
 [dependencies]
 yare-macro = { path = "yare-macro", version = "1.0.0" }
 
