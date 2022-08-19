@@ -8,7 +8,7 @@ description = "Attribute macro crate for the Yare parameterized tests library."
 documentation = "https://docs.rs/crate/yare-macro"
 repository = "https://github.com/foresterre/yare"
 readme = "readme.md"
-keywords = ["parameterized", "attribute", "test", "unit-test", "workshop"]
+keywords = ["parameterized", "attribute", "test", "unit-test", "test-case"]
 categories = ["development-tools", "development-tools::testing"]
 
 autotests = false
