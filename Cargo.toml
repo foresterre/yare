@@ -12,7 +12,7 @@ keywords = ["parameterized", "parametrized", "test", "unit-test", "test-case"]
 categories = ["development-tools", "development-tools::testing"]
 
 [package.metadata]
-msrv = "1.38"
+msrv = "1.36"
 
 [dependencies]
 yare-macro = { path = "yare-macro", version = "1.0.0" }
