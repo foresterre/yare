@@ -73,9 +73,9 @@
 //!     use yare::parameterized;
 //!
 //!     #[parameterized(
-//!         apple = { Fruit::Apple, "apple" },
-//!         pear = { Fruit::Pear, "pear" },
-//!         blackberry = { Fruit::Bramble(BrambleFruit::Blackberry), "blackberry" },
+//!         apple = { Fruit::Apple, "apple" }, // first test case!
+//!         pear = { Fruit::Pear, "pear" }, // second test case!
+//!         blackberry = { Fruit::Bramble(BrambleFruit::Blackberry), "blackberry" }, // third test case!
 //!     )]
 //!     fn a_fruity_test(fruit: Fruit, name: &str) {
 //!         assert_eq!(fruit.name_of(), name)
