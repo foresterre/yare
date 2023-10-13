@@ -1,4 +1,5 @@
-use proc_macro2::Ident;
+use crate::test_fn::TestFn;
+use quote::format_ident;
 use std::fmt::Formatter;
 use syn::braced;
 use syn::parse::{Parse, ParseStream, Result};
@@ -8,13 +9,29 @@ use syn::punctuated::Punctuated;
 /// of the test case, followed by a list of arguments. The order of the argument is equal to the
 /// input of the function.
 #[derive(Clone)]
-pub(crate) struct TestCases {
-    pub(crate) cases: Punctuated<TestCase, Token![,]>,
+pub struct TestCases {
+    cases: Punctuated<TestCase, Token![,]>,
 }
 
 impl TestCases {
-    pub(crate) fn cases(&self) -> Vec<&TestCase> {
-        self.cases.iter().collect()
+    pub fn to_token_stream(&self, test_fn: &TestFn) -> proc_macro2::TokenStream {
+        let visibility = test_fn.visibility();
+        let mod_ident = format_ident!("{}", test_fn.identifier());
+
+        let generated_cases = self
+            .cases
+            .iter()
+            .map(|case| case.to_token_stream(test_fn))
+            .collect::<Vec<_>>();
+
+        ::quote::quote! {
+            #[cfg(test)]
+            #visibility mod #mod_ident {
+                use super::*;
+
+                #(#generated_cases)*
+            }
+        }
     }
 }
 
@@ -44,20 +61,37 @@ impl Parse for TestCases {
 /// surrounded by brackets contains a list of arguments which will be supplied to the test function
 /// in the same order as provided here.
 #[derive(Clone)]
-pub(crate) struct TestCase {
-    pub(crate) id: syn::Ident,
-    assignment: Token![=],
-    braces: syn::token::Brace,
-    pub(crate) arguments: Punctuated<syn::Expr, Token![,]>,
+pub struct TestCase {
+    id: syn::Ident,
+    _assignment: Token![=],
+    _braces: syn::token::Brace,
+    arguments: Punctuated<syn::Expr, Token![,]>,
 }
 
 impl TestCase {
-    pub(crate) fn identifier(&self) -> &Ident {
-        &self.id
-    }
+    pub fn to_token_stream(&self, test_fn: &TestFn) -> proc_macro2::TokenStream {
+        let attributes = test_fn.attributes();
+        let visibility = test_fn.visibility();
+        let test_ident = &self.id;
 
-    pub(crate) fn inputs(&self) -> Vec<&syn::Expr> {
-        self.arguments.iter().collect()
+        let bindings = test_fn
+            .parameters()
+            .zip(&self.arguments)
+            .map(|((ident, typ), expr)| {
+                ::quote::quote! {
+                    let #ident: #typ = #expr;
+                }
+            });
+        let body = test_fn.body();
+
+        ::quote::quote! {
+            #[test]
+            #(#attributes)*
+            #visibility fn #test_ident() {
+                #(#bindings)*
+                #body
+            }
+        }
     }
 }
 
@@ -73,8 +107,8 @@ impl Parse for TestCase {
 
         Ok(TestCase {
             id: input.parse()?,
-            assignment: input.parse()?,
-            braces: braced!(content in input),
+            _assignment: input.parse()?,
+            _braces: braced!(content in input),
             arguments: Punctuated::parse_terminated(&content)?,
         })
     }
