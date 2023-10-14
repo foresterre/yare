@@ -36,6 +36,10 @@ impl TestFn {
         &self.fun.sig.ident
     }
 
+    pub fn return_type(&self) -> &::syn::ReturnType {
+        &self.fun.sig.output
+    }
+
     pub fn body(&self) -> &::syn::Block {
         &self.fun.block
     }

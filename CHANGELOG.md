@@ -2,6 +2,31 @@
 
 ## [Unreleased] 
 
+### Added
+
+
+* Test signature may now have return type, given that is also accepted by the `#[test]` macro.
+
+**Example**
+
+```rust
+use yare::parameterized;
+
+#[parameterized(
+    ok = { Ok(0) },
+    err = { Err("This case will fail".to_string()) },
+)]
+fn example_test(value: Result<u32, String>) -> Result<(), String> {
+    let _ = value?;
+
+    Ok(())
+}
+```
+
+### Changed
+
+* **Breaking:** Parameter and argument count now must match exactly 
+
 [Unreleased]: https://github.com/foresterre/storyteller/compare/v1.0.2...HEAD
 
 ## [1.0.2] - 2022-08-19
@@ -36,9 +61,3 @@
 [0.1.0]: https://github.com/foresterre/bisector/compare/v0.0.0...v0.1.0
 
 -->
-
-# Legend
-
-| Pictogram | Meaning         |
-|-----------|-----------------|
-| ⚠       | Breaking change |

@@ -76,6 +76,7 @@ impl TestCase {
         let test_ident = &self.id;
 
         let parameters = test_fn.parameters()?;
+        let return_type = test_fn.return_type();
 
         if self.arguments.len() != parameters.len() {
             return Err(syn::Error::new(
@@ -102,7 +103,7 @@ impl TestCase {
         Ok(::quote::quote! {
             #[test]
             #(#attributes)*
-            #visibility fn #test_ident() {
+            #visibility fn #test_ident() #return_type {
                 #(#bindings)*
                 #body
             }
