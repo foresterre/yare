@@ -14,7 +14,7 @@ pub struct TestCases {
 }
 
 impl TestCases {
-    pub fn to_token_stream(&self, test_fn: &TestFn) -> proc_macro2::TokenStream {
+    pub fn to_token_stream(&self, test_fn: &TestFn) -> Result<proc_macro2::TokenStream> {
         let visibility = test_fn.visibility();
         let mod_ident = format_ident!("{}", test_fn.identifier());
 
@@ -22,16 +22,16 @@ impl TestCases {
             .cases
             .iter()
             .map(|case| case.to_token_stream(test_fn))
-            .collect::<Vec<_>>();
+            .collect::<Result<Vec<_>>>()?;
 
-        ::quote::quote! {
+        Ok(::quote::quote! {
             #[cfg(test)]
             #visibility mod #mod_ident {
                 use super::*;
 
                 #(#generated_cases)*
             }
-        }
+        })
     }
 }
 
@@ -61,21 +61,36 @@ impl Parse for TestCases {
 /// surrounded by brackets contains a list of arguments which will be supplied to the test function
 /// in the same order as provided here.
 #[derive(Clone)]
+#[allow(dead_code)]
 pub struct TestCase {
     id: syn::Ident,
-    _assignment: Token![=],
-    _braces: syn::token::Brace,
+    assignment: Token![=],
+    braces: syn::token::Brace,
     arguments: Punctuated<syn::Expr, Token![,]>,
 }
 
 impl TestCase {
-    pub fn to_token_stream(&self, test_fn: &TestFn) -> proc_macro2::TokenStream {
+    pub fn to_token_stream(&self, test_fn: &TestFn) -> Result<proc_macro2::TokenStream> {
         let attributes = test_fn.attributes();
         let visibility = test_fn.visibility();
         let test_ident = &self.id;
 
-        let bindings = test_fn
-            .parameters()
+        let parameters = test_fn.parameters()?;
+
+        if self.arguments.len() != parameters.len() {
+            return Err(syn::Error::new(
+                test_ident.span(), // Not ideal, but on stable, Span::call_site, or even an impl ToTokens for TestCase doesn't seem to include the whole test case, grrr!
+                format_args!(
+                    "{}: Expected {} arguments, but {} were given",
+                    test_ident,
+                    parameters.len(),
+                    self.arguments.len(),
+                ),
+            ));
+        }
+
+        let bindings = parameters
+            .iter()
             .zip(&self.arguments)
             .map(|((ident, typ), expr)| {
                 ::quote::quote! {
@@ -84,14 +99,14 @@ impl TestCase {
             });
         let body = test_fn.body();
 
-        ::quote::quote! {
+        Ok(::quote::quote! {
             #[test]
             #(#attributes)*
             #visibility fn #test_ident() {
                 #(#bindings)*
                 #body
             }
-        }
+        })
     }
 }
 
@@ -107,8 +122,8 @@ impl Parse for TestCase {
 
         Ok(TestCase {
             id: input.parse()?,
-            _assignment: input.parse()?,
-            _braces: braced!(content in input),
+            assignment: input.parse()?,
+            braces: braced!(content in input),
             arguments: Punctuated::parse_terminated(&content)?,
         })
     }
