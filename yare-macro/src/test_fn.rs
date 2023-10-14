@@ -1,22 +1,27 @@
+use syn::spanned::Spanned;
+
 pub struct TestFn {
     fun: ::syn::ItemFn,
 }
 
 impl TestFn {
-    pub fn parameters(&self) -> impl Iterator<Item = (&::syn::Ident, &::syn::Type)> {
-        if self.fun.sig.inputs.is_empty() {}
-
-        self.fun.sig.inputs.iter().filter_map(|item| {
-            if let ::syn::FnArg::Typed(::syn::PatType { pat, ty, .. }) = item {
-                if let ::syn::Pat::Ident(::syn::PatIdent { ident, .. }) = pat.as_ref() {
-                    Some((ident, ty.as_ref()))
+    pub fn parameters(&self) -> ::syn::Result<Vec<(&::syn::Ident, &::syn::Type)>> {
+        self.fun
+            .sig
+            .inputs
+            .iter()
+            .map(|item| {
+                if let ::syn::FnArg::Typed(::syn::PatType { pat, ty, .. }) = item {
+                    if let ::syn::Pat::Ident(::syn::PatIdent { ident, .. }) = pat.as_ref() {
+                        Ok((ident, ty.as_ref()))
+                    } else {
+                        Err(syn::Error::new(pat.span(), "Expected identifier"))
+                    }
                 } else {
-                    None
+                    Err(syn::Error::new(item.span(), "Expected function argument"))
                 }
-            } else {
-                None
-            }
-        })
+            })
+            .collect::<::syn::Result<_>>()
     }
 
     pub fn attributes(&self) -> &[::syn::Attribute] {
@@ -36,22 +41,24 @@ impl TestFn {
     }
 }
 
-impl ::std::fmt::Debug for TestFn {
-    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
-        f.write_str("TestFn(")?;
-
-        for param in self.parameters() {
-            f.write_str(&format!("{:?}, ", param.0))?;
-        }
-
-        f.write_str(")")
-    }
-}
-
 impl ::syn::parse::Parse for TestFn {
     fn parse(input: ::syn::parse::ParseStream) -> ::syn::parse::Result<Self> {
         Ok(TestFn {
             fun: input.parse()?,
         })
+    }
+}
+
+impl ::std::fmt::Debug for TestFn {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        f.write_str("TestFn(")?;
+
+        let parameters = self.parameters().map_err(|_| ::std::fmt::Error)?;
+
+        for param in parameters {
+            f.write_fmt(format_args!("{:?}, ", param.0))?;
+        }
+
+        f.write_str(")")
     }
 }
