@@ -4,15 +4,13 @@ description = "Minimal parameterized testing library for Rust 💖"
 authors = ["Martijn Gribnau <garm@ilumeo.com>"]
 version = "1.0.2"
 license = "MIT OR Apache-2.0"
-edition = "2018"
+edition = "2021"
 documentation = "https://docs.rs/crate/yare"
 repository = "https://github.com/foresterre/yare"
 readme = "README.md"
 keywords = ["parameterized", "parametrized", "test", "unit-test", "test-case"]
 categories = ["development-tools", "development-tools::testing"]
-
-[package.metadata]
-msrv = "1.38"
+rust-version = "1.56"
 
 [dependencies]
 yare-macro = { path = "yare-macro", version = "1.0.0" }

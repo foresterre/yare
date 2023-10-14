@@ -2,7 +2,7 @@
 name = "yare-macro"
 version = "1.0.1"
 authors = ["Martijn Gribnau <garm@ilumeo.com>"]
-edition = "2018"
+edition = "2021"
 license = "MIT OR Apache-2.0"
 description = "Attribute macro crate for the Yare parameterized tests library."
 documentation = "https://docs.rs/crate/yare-macro"
@@ -12,9 +12,7 @@ keywords = ["parameterized", "attribute", "test", "unit-test", "test-case"]
 categories = ["development-tools", "development-tools::testing"]
 
 autotests = false
-
-[package.metadata]
-msrv = "1.38"
+rust-version = "1.56"
 
 [lib]
 proc-macro = true
