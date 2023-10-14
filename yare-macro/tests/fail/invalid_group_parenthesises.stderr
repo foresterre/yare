@@ -1,0 +1,5 @@
+error: expected curly braces
+ --> tests/fail/invalid_group_parenthesises.rs:4:13
+  |
+4 |     case1 = ( 0 ),
+  |             ^

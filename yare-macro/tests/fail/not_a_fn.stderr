@@ -1,0 +1,5 @@
+error: expected `fn`
+ --> tests/fail/not_a_fn.rs:6:1
+  |
+6 | struct A;
+  | ^^^^^^

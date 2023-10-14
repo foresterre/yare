@@ -1,0 +1,5 @@
+error: case1: Expected 2 arguments, but 3 were given
+ --> tests/fail/too_many_arguments.rs:4:5
+  |
+4 |     case1 = { 0, 1, 2 },
+  |     ^^^^^
