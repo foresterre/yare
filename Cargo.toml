@@ -2,7 +2,7 @@
 name = "yare"
 description = "Lean library for writing parameterized test cases in Rust 💖"
 authors = ["Martijn Gribnau <garm@ilumeo.com>"]
-version = "1.0.2"
+version = "2.0.0"
 license = "MIT OR Apache-2.0"
 edition = "2021"
 documentation = "https://docs.rs/crate/yare"
@@ -13,7 +13,7 @@ categories = ["development-tools", "development-tools::testing"]
 rust-version = "1.56"
 
 [dependencies]
-yare-macro = { path = "yare-macro", version = "1.0.0" }
+yare-macro = { path = "yare-macro", version = "2.0.0" }
 
 [workspace]
 members = ["yare-macro"]
