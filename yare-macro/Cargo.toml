@@ -24,7 +24,7 @@ path = "tests/cases.rs"
 [dependencies]
 proc-macro2 = "1"
 quote = "1"
-syn = { version = "1", features = ["full"] }
+syn = { version = "2", features = ["full"] }
 
 [dev-dependencies]
 trybuild = "1.0"
