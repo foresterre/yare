@@ -1,6 +1,10 @@
 # Changelog
 
-## [Unreleased] 
+## [Unreleased]
+
+[Unreleased]: https://github.com/foresterre/storyteller/compare/v2.0.0...HEAD
+
+## [2.0.0] - 2023-10-16
 
 ### Added
 
@@ -30,7 +34,7 @@ fn example_test(value: Result<u32, String>) -> Result<(), String> {
 
 * **Breaking:** Removed deprecated `ide!` macro
 
-[Unreleased]: https://github.com/foresterre/storyteller/compare/v1.0.2...HEAD
+[2.0.0]: https://github.com/foresterre/yare/releases/tag/v2.0.0
 
 ## [1.0.2] - 2022-08-19
 
@@ -42,7 +46,7 @@ fn example_test(value: Result<u32, String>) -> Result<(), String> {
 
 * Deprecated `ide!` macro
 
-[1.0.2]: https://github.com/foresterre/bisector/compare/v1.0.1...v1.0.2
+[1.0.2]: https://github.com/foresterre/yare/releases/tag/v1.0.2
 
 <!-- Example:
 
