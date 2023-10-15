@@ -111,26 +111,5 @@ extern crate yare_macro as yare;
 
 pub use yare::parameterized;
 
-/// Attribute macro's such as 'parameterized' do not enable the run tests intent for a module
-/// marked as cfg(test) (or a #[test] function for that matter) in Intellij.
-///
-/// To enable the intent within a module, we need at least a single test marked with `#[test]`.
-/// The `ide!()` macro is a work around for this issue and creates this empty test. It can be called
-/// within every module where we wish to run test cases using the run configuration / run test context
-/// menu.
-///
-/// Using the intellij-rust new macro expansion engine, if this macro is called within a module,
-/// the module will be marked as test, and the 'run as test' context menu will be provided in the
-/// gutter.
-#[doc(hidden)]
-#[deprecated]
-#[macro_export]
-macro_rules! ide {
-    () => {
-        #[test]
-        fn __mark_with_test_intent() {}
-    };
-}
-
 #[cfg(test)]
 mod tests;
