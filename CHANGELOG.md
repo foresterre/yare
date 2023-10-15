@@ -4,7 +4,6 @@
 
 ### Added
 
-
 * Test signature may now have return type, given that is also accepted by the `#[test]` macro.
 
 **Example**
@@ -26,6 +25,10 @@ fn example_test(value: Result<u32, String>) -> Result<(), String> {
 ### Changed
 
 * **Breaking:** Parameter and argument count now must match exactly 
+
+### Removed
+
+* **Breaking:** Removed deprecated `ide!` macro
 
 [Unreleased]: https://github.com/foresterre/storyteller/compare/v1.0.2...HEAD
 
