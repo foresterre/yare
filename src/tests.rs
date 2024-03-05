@@ -3,4 +3,5 @@ mod marked_test;
 mod readme;
 mod should_panic;
 
+mod dice;
 mod return_type;
