@@ -4,6 +4,32 @@
 
 [Unreleased]: https://github.com/foresterre/storyteller/compare/v2.0.0...HEAD
 
+## [2.1.0] - 2024-03-06
+
+### Added
+
+* Parameterized tests now parse and regenerate the `const`, `async`, `unsafe` and `extern` function qualifiers for test functions.
+
+**Example**
+
+```rust
+use yare::parameterized;
+
+// NB: The underlying test macro also must support these qualifiers. For example, the default `#[test]` doesn't support async and unsafe.
+
+#[parameterized(
+    purple = { &[128, 0, 128] },
+    orange = { &[255, 127, 0] },
+)]
+const extern "C" fn has_reds(streamed_color: &[u8]) {
+    assert!(streamed_color.first().is_some());
+}
+
+```
+
+
+[2.1.0]: https://github.com/foresterre/yare/releases/tag/v2.1.0
+
 ## [2.0.0] - 2023-10-16
 
 ### Added
