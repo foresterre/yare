@@ -5,6 +5,34 @@ pub struct TestFn {
 }
 
 impl TestFn {
+    pub fn attributes(&self) -> &[::syn::Attribute] {
+        &self.fun.attrs
+    }
+
+    pub fn visibility(&self) -> &::syn::Visibility {
+        &self.fun.vis
+    }
+
+    pub fn constness(&self) -> Option<&::syn::token::Const> {
+        self.fun.sig.constness.as_ref()
+    }
+
+    pub fn asyncness(&self) -> Option<&::syn::token::Async> {
+        self.fun.sig.asyncness.as_ref()
+    }
+
+    pub fn unsafety(&self) -> Option<&::syn::token::Unsafe> {
+        self.fun.sig.unsafety.as_ref()
+    }
+
+    pub fn abi(&self) -> Option<&::syn::Abi> {
+        self.fun.sig.abi.as_ref()
+    }
+
+    pub fn identifier(&self) -> &::syn::Ident {
+        &self.fun.sig.ident
+    }
+
     pub fn parameters(&self) -> ::syn::Result<Vec<(&::syn::Ident, &::syn::Type)>> {
         self.fun
             .sig
@@ -22,18 +50,6 @@ impl TestFn {
                 }
             })
             .collect::<::syn::Result<_>>()
-    }
-
-    pub fn attributes(&self) -> &[::syn::Attribute] {
-        &self.fun.attrs
-    }
-
-    pub fn visibility(&self) -> &::syn::Visibility {
-        &self.fun.vis
-    }
-
-    pub fn identifier(&self) -> &::syn::Ident {
-        &self.fun.sig.ident
     }
 
     pub fn return_type(&self) -> &::syn::ReturnType {

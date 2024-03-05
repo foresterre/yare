@@ -71,19 +71,30 @@ pub struct TestCase {
 
 impl TestCase {
     pub fn to_token_stream(&self, test_fn: &TestFn) -> Result<proc_macro2::TokenStream> {
+        // fn attributes, e.g. #[require(x < 5)]
         let attributes = test_fn.attributes();
+        // fn visibility, e.g. pub, pub(in crate::some)
         let visibility = test_fn.visibility();
-        let test_ident = &self.id;
+        // const qualifier
+        let constness = test_fn.constness();
+        // async qualifier
+        let asyncness = test_fn.asyncness();
+        // unsafe qualifier
+        let unsafety = test_fn.unsafety();
+        // extern qualifier
+        let abi = test_fn.abi();
+        // fn identifier, e.g. `hello` in `fn hello(a: i32) -> Option<()> { None }`
+        let identifier = &self.id;
 
+        // fn parameters, e.g. `a: i32` in `fn hello(a: i32) -> Option<()> { None }`
         let parameters = test_fn.parameters()?;
-        let return_type = test_fn.return_type();
 
         if self.arguments.len() != parameters.len() {
             return Err(syn::Error::new(
-                test_ident.span(), // Not ideal, but on stable, Span::call_site, or even an impl ToTokens for TestCase doesn't seem to include the whole test case, grrr!
+                identifier.span(), // Not ideal, but on stable, Span::call_site, or even an impl ToTokens for TestCase doesn't seem to include the whole test case, grrr!
                 format_args!(
                     "{}: Expected {} arguments, but {} were given",
-                    test_ident,
+                    identifier,
                     parameters.len(),
                     self.arguments.len(),
                 ),
@@ -98,12 +109,17 @@ impl TestCase {
                     let #ident: #typ = #expr;
                 }
             });
+
+        // fn return type (output), e.g. `-> Option<()>` in `fn hello(a: i32) -> Option<()> { None }`
+        let return_type = test_fn.return_type();
+
+        // fn block expression (function body), e.g. `{ None }` in `fn hello(a: i32) -> Option<()> { None }`
         let body = test_fn.body();
 
         Ok(::quote::quote! {
             #[test]
             #(#attributes)*
-            #visibility fn #test_ident() #return_type {
+            #visibility #constness #asyncness #unsafety #abi fn #identifier() #return_type {
                 #(#bindings)*
                 #body
             }
