@@ -1,6 +1,6 @@
 [package]
 name = "yare"
-description = "Lean library for writing parameterized test cases in Rust 💖"
+description = "Lean parameterized test case library for Rust 🚀"
 authors = ["Martijn Gribnau <garm@ilumeo.com>"]
 version = "2.0.0"
 license = "MIT OR Apache-2.0"

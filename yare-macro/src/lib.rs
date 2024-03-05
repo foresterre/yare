@@ -1,5 +1,6 @@
 //! # Yare
 //!
+//! Documentation can be found [here](https://github.com/foresterre/yare).
 
 #[macro_use]
 extern crate syn;
