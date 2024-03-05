@@ -4,4 +4,5 @@ mod readme;
 mod should_panic;
 
 mod dice;
+mod qualifiers;
 mod return_type;
