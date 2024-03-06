@@ -12,7 +12,7 @@ keywords = ["parameterized", "attribute", "test", "unit-test", "test-case"]
 categories = ["development-tools", "development-tools::testing"]
 
 autotests = false
-rust-version = "1.56"
+rust-version = "1.62"
 
 [lib]
 proc-macro = true
@@ -27,4 +27,4 @@ quote = "1"
 syn = { version = "2", features = ["full"] }
 
 [dev-dependencies]
-trybuild = "1.0"
+trybuild = "1"
