@@ -10,7 +10,7 @@ repository = "https://github.com/foresterre/yare"
 readme = "README.md"
 keywords = ["parameterized", "parametrized", "test", "unit-test", "test-case"]
 categories = ["development-tools", "development-tools::testing"]
-rust-version = "1.56"
+rust-version = "1.62"
 
 [dependencies]
 yare-macro = { path = "yare-macro", version = "2.0.0" }

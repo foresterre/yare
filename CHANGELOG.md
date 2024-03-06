@@ -26,7 +26,9 @@ const extern "C" fn has_reds(streamed_color: &[u8]) {
 }
 
 ```
+### Changed 
 
+* MSRV is now 1.62
 
 [2.1.0]: https://github.com/foresterre/yare/releases/tag/v2.1.0
 
