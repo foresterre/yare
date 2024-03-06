@@ -22,7 +22,7 @@ Test cases can be defined using the 'parameterized' attribute instead of the 'te
 * [Global #[parameterized(,,,)] import](#globally-importing-parameterized-supa-hrefyareback-to-topasup)
 * [License](#license-supa-hrefyareback-to-topasup)
 
-## Examples <sup>(<a href="#yare">back to top</a>)</sup>
+## Examples <sup>(<a href="#yare-">back to top</a>)</sup>
 
 
 **A first example**
@@ -101,7 +101,7 @@ mod tests {
 
 <br>
 
-## Arguments are expressions <sup>(<a href="#yare">back to top</a>)</sup>
+## Arguments are expressions <sup>(<a href="#yare-">back to top</a>)</sup>
 
 While the arguments above were simple values, any expression can be used as argument in a test case.
 
@@ -141,7 +141,7 @@ fn dicey(seed1: u8, seed2: u8) {
 }
 ```
 
-## Return types <sup>(<a href="#yare">back to top</a>)</sup>
+## Return types <sup>(<a href="#yare-">back to top</a>)</sup>
 
 Yare supports specifying a return type for a parameterized test function.
 
@@ -166,7 +166,7 @@ fn test(value: Result<u32, String>) -> Result<(), String> {
 
 ```
 
-## Function qualifiers <sup>(<a href="#yare">back to top</a>)</sup>
+## Function qualifiers <sup>(<a href="#yare-">back to top</a>)</sup>
 
 Yare supports the following function qualifiers: `const`, `async`, `unsafe` and `extern`.
 This is particularly useful if you use `#[parameterized(...)]` with a custom test macro such as `tokio::test`, instead
@@ -186,7 +186,7 @@ const extern "C" fn has_reds(streamed_color: &[u8]) {
 }
 ```
 
-## Globally importing parameterized <sup>(<a href="#yare">back to top</a>)</sup>
+## Globally importing parameterized <sup>(<a href="#yare-">back to top</a>)</sup>
 
 If you prefer not to import this library (with `use yare::parameterized;`) in every test module, you can put
 the following snippet at the top of your crate root:
@@ -197,7 +197,7 @@ the following snippet at the top of your crate root:
 extern crate yare;
 ```
 
-## License <sup>(<a href="#yare">back to top</a>)</sup>
+## License <sup>(<a href="#yare-">back to top</a>)</sup>
 
 Licensed under either of <a href="LICENSE-APACHE">Apache License, Version
 2.0</a> or <a href="LICENSE-MIT">MIT license</a> at your option.
