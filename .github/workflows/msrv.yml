@@ -25,15 +25,11 @@ jobs:
             path: "yare-macro"
     steps:
       - name: checkout_repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: install_rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
-          profile: minimal
+        uses: dtolnay/rust-toolchain@stable
       - name: install_cargo_msrv
-        run: cargo install cargo-msrv --no-default-features
+        run: cargo install --version 0.16.0-beta.20 --no-default-features cargo-msrv
       - name: version_of_cargo_msrv
         run: cargo msrv --version
       - name: run_cargo_msrv
