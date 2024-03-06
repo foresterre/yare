@@ -15,12 +15,12 @@ Test cases can be defined using the 'parameterized' attribute instead of the 'te
 ## Table of contents
 
 * [Introduction](#yare-)
-* [Examples](#examples-supa-hrefyareback-to-topasup)
-* [Arguments are expressions](#arguments-are-expressions-supa-hrefyareback-to-topasup)
-* [Return types](#return-types-supa-hrefyareback-to-topasup)
-* [Function qualifiers](#function-qualifiers-supa-hrefyareback-to-topasup)
-* [Global #[parameterized(,,,)] import](#globally-importing-parameterized-supa-hrefyareback-to-topasup)
-* [License](#license-supa-hrefyareback-to-topasup)
+* [Examples](#examples-back-to-top)
+* [Arguments are expressions](#arguments-are-expressions-back-to-top)
+* [Return types](#return-types-back-to-top)
+* [Function qualifiers](#function-qualifiers-back-to-top)
+* [Global #[parameterized(,,,)] import](#globally-importing-parameterized-back-to-top)
+* [License](#license-back-to-top)
 
 ## Examples <sup>(<a href="#yare-">back to top</a>)</sup>
 
