@@ -70,7 +70,7 @@ pub struct TestCase {
 }
 
 impl TestCase {
-    pub fn to_token_stream(&self, test_fn: &TestFn) -> Result<proc_macro2::TokenStream> {
+    pub fn to_token_stream(&self, test_fn: &TestFn) -> Result<::proc_macro2::TokenStream> {
         // fn attributes, e.g. #[require(x < 5)]
         let attributes = test_fn.attributes();
         // fn visibility, e.g. pub, pub(in crate::some)
@@ -84,6 +84,27 @@ impl TestCase {
         // extern qualifier
         let abi = test_fn.abi();
         // fn identifier, e.g. `hello` in `fn hello(a: i32) -> Option<()> { None }`
+        let identifier = &self.id;
+
+        let bindings = self.generate_bindings(test_fn)?;
+
+        // fn return type (output), e.g. `-> Option<()>` in `fn hello(a: i32) -> Option<()> { None }`
+        let return_type = test_fn.return_type();
+
+        // fn block expression (function body), e.g. `{ None }` in `fn hello(a: i32) -> Option<()> { None }`
+        let body = test_fn.body();
+
+        Ok(::quote::quote! {
+            #[test]
+            #(#attributes)*
+            #visibility #constness #asyncness #unsafety #abi fn #identifier() #return_type {
+                #bindings
+                #body
+            }
+        })
+    }
+
+    fn generate_bindings(&self, test_fn: &TestFn) -> Result<::proc_macro2::TokenStream> {
         let identifier = &self.id;
 
         // fn parameters, e.g. `a: i32` in `fn hello(a: i32) -> Option<()> { None }`
@@ -110,19 +131,8 @@ impl TestCase {
                 }
             });
 
-        // fn return type (output), e.g. `-> Option<()>` in `fn hello(a: i32) -> Option<()> { None }`
-        let return_type = test_fn.return_type();
-
-        // fn block expression (function body), e.g. `{ None }` in `fn hello(a: i32) -> Option<()> { None }`
-        let body = test_fn.body();
-
         Ok(::quote::quote! {
-            #[test]
-            #(#attributes)*
-            #visibility #constness #asyncness #unsafety #abi fn #identifier() #return_type {
-                #(#bindings)*
-                #body
-            }
+            #(#bindings)*
         })
     }
 }
