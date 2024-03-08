@@ -1,7 +1,7 @@
 # Yare ⛵
 
-Procedural macro based parameterized testing library. Run a test case with many different inputs.
-Test cases can be defined using the 'parameterized' attribute instead of the 'test' attribute.
+A lean procedural macro based _parameterized testing library_. Run a test case with many different inputs.
+Patameterized test cases are defined using the 'parameterized' attribute instead of a default 'test' attribute.
 
 **Features**
 
@@ -25,7 +25,8 @@ Test cases can be defined using the 'parameterized' attribute instead of the 'te
 * [Custom test macro (e.g. tokio::test)](#custom-test-macro-eg-tokiotest-back-to-top)
 * [Return types](#return-types-back-to-top)
 * [Function qualifiers](#function-qualifiers-back-to-top)
-* [Global #[parameterized(,,,)] import](#globally-importing-parameterized-back-to-top)
+* [Global #[parameterized(...)] import](#globally-importing-parameterized-back-to-top)
+* [Alternatives](#alternatives-back-to-top)
 * [License](#license-back-to-top)
 
 ## Examples <sup>(<a href="#yare-">back to top</a>)</sup>
@@ -276,6 +277,13 @@ the following snippet at the top of your crate root:
 #[macro_use]
 extern crate yare;
 ```
+
+## Alternatives <sup>(<a href="#yare-">back to top</a>)</sup>
+
+If Yare is not quite what you're looking for, there are some alternatives:
+- [Parameterized](https://github.com/foresterre/parameterized): Attribute based macro with syntax inspired by JUnit (disclaimer: I authored this one too)
+- [Rstest](https://github.com/la10736/rstest)
+- [Test-case](https://github.com/frondeus/test-case)
 
 ## License <sup>(<a href="#yare-">back to top</a>)</sup>
 
