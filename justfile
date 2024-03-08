@@ -1,19 +1,17 @@
-test:
-    cargo test --all
-    cargo test --manifest-path yare-tests-integration/Cargo.toml
-    cargo test --manifest-path yare-tests-ui/Cargo.toml
+# NB: requires Just >= 1.19 and just --unstable
 
-fmt:
-    cargo fmt --all
-    cargo fmt --manifest-path yare-tests-integration/Cargo.toml
-    cargo fmt --manifest-path yare-tests-ui/Cargo.toml
+mod clippy '.justfiles/clippy.just'
+mod deny '.justfiles/deny.just'
+mod fmt '.justfiles/fmt.just'
+mod msrv '.justfiles/msrv.just'
+mod test '.justfiles/test.just'
 
-clippy:
-    cargo clippy --all-targets --all-features -- -D warnings
-
-msrv:
-    cargo install cargo-msrv --version 0.16.0-beta.20
-    cargo msrv verify
-    cargo msrv verify --manifest-path yare-macro/Cargo.toml
-
-before-push: fmt test clippy msrv
+before-push:
+    # do
+    just --unstable fmt
+    # run checks
+    just --unstable fmt check
+    just --unstable clippy
+    just --unstable test
+    just --unstable msrv
+    just --unstable deny
