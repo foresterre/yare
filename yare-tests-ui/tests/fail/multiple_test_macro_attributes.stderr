@@ -1,0 +1,5 @@
+error: Expected at most 1 #[test_macro(...)] attribute, but 2 were given
+ --> tests/fail/multiple_test_macro_attributes.rs:8:14
+  |
+8 | #[test_macro(tokio::test(start_paused = true))]
+  |              ^^^^^

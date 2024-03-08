@@ -20,6 +20,6 @@ pub fn parameterized(
 
     test_cases
         .to_token_stream(&test_fn)
-        .unwrap_or_else(syn::Error::into_compile_error)
+        .unwrap_or_else(::syn::Error::into_compile_error)
         .into()
 }

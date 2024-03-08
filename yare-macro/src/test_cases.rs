@@ -71,6 +71,8 @@ pub struct TestCase {
 
 impl TestCase {
     pub fn to_token_stream(&self, test_fn: &TestFn) -> Result<::proc_macro2::TokenStream> {
+        test_fn.assert_at_most_one_test_macro()?;
+
         let test_meta = test_fn.test_macro_attribute();
         // fn attributes, e.g. #[require(x < 5)]
         let attributes = test_fn.attributes();
@@ -112,7 +114,7 @@ impl TestCase {
         let parameters = test_fn.parameters()?;
 
         if self.arguments.len() != parameters.len() {
-            return Err(syn::Error::new(
+            return Err(::syn::Error::new(
                 identifier.span(), // Not ideal, but on stable, Span::call_site, or even an impl ToTokens for TestCase doesn't seem to include the whole test case, grrr!
                 format_args!(
                     "{}: Expected {} arguments, but {} were given",
