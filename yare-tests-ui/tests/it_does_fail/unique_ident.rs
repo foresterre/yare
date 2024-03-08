@@ -1,4 +1,4 @@
-use yare_macro::parameterized;
+use yare::parameterized;
 
 // It actually does fail to compile, but idk why not for trybuild.
 

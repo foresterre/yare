@@ -1,8 +1,8 @@
-use yare_macro::parameterized;
+use yare::parameterized;
 
 #[parameterized(
     case1 = { 0 },
 )]
-struct A;
+const fn test(a: u32) {}
 
 fn main() {}
