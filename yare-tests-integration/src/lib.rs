@@ -3,6 +3,7 @@ mod one_case;
 mod one_param;
 mod qualifier_abi;
 mod qualifier_async;
+mod qualifier_async_complex;
 mod qualifier_const;
 mod return_type;
 mod should_panic;
