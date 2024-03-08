@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        build: [ubuntu, macos, win-gnu, win-msvc]
+        build: [ ubuntu, macos, win-gnu, win-msvc ]
         include:
           - build: ubuntu
             os: ubuntu-latest
@@ -51,3 +51,10 @@ jobs:
 
       - name: test_all
         run: cargo test --verbose --workspace
+
+      - name: test_integration
+        run: cargo test --manifest-path yare-tests-integration/Cargo.toml
+
+      - name: test_ui
+        run: cargo test --manifest-path yare-tests-ui/Cargo.toml
+

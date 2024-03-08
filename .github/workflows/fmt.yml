@@ -22,3 +22,9 @@ jobs:
 
       - name: check_formatting
         run: cargo fmt --all -- --check
+
+      - name: check_formatting_integration
+        run: cargo fmt --manifest-path yare-tests-integration/Cargo.toml --all -- --check
+
+      - name: check_formatting_ui
+        run: cargo fmt --manifest-path yare-tests-ui/Cargo.toml --all -- --check
