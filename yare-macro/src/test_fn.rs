@@ -6,6 +6,30 @@ pub struct TestFn {
 }
 
 impl TestFn {
+    pub fn assert_at_most_one_test_macro(&self) -> ::syn::Result<()> {
+        let test_macros = self
+            .attributes
+            .iter()
+            .filter_map(Attribute::to_test_macro)
+            .collect::<Vec<_>>();
+
+        let count = test_macros.len();
+
+        if count <= 1 {
+            Ok(())
+        } else {
+            let meta = &test_macros[count - 1];
+
+            Err(::syn::Error::new(
+                meta.span(),
+                format_args!(
+                    "Expected at most 1 #[test_macro(...)] attribute, but {} were given",
+                    count
+                ),
+            ))
+        }
+    }
+
     pub fn attributes(&self) -> Vec<::syn::Attribute> {
         let mut parsed_attr = self
             .attributes
@@ -64,10 +88,10 @@ impl TestFn {
                     if let ::syn::Pat::Ident(::syn::PatIdent { ident, .. }) = pat.as_ref() {
                         Ok((ident, ty.as_ref()))
                     } else {
-                        Err(syn::Error::new(pat.span(), "Expected identifier"))
+                        Err(::syn::Error::new(pat.span(), "Expected identifier"))
                     }
                 } else {
-                    Err(syn::Error::new(item.span(), "Expected function argument"))
+                    Err(::syn::Error::new(item.span(), "Expected function argument"))
                 }
             })
             .collect::<::syn::Result<_>>()
