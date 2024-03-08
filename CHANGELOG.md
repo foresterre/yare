@@ -2,10 +2,6 @@
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/foresterre/storyteller/compare/v2.0.0...HEAD
-
-## [2.1.0] - 2024-03-06
-
 ### Added
 
 * Parameterized tests now parse and regenerate the `const`, `async`, `unsafe` and `extern` function qualifiers for test functions.
@@ -24,13 +20,30 @@ use yare::parameterized;
 const extern "C" fn has_reds(streamed_color: &[u8]) {
     assert!(streamed_color.first().is_some());
 }
+```
+
+* It is now possible to specify a custom test macro with `#[test_macro(...)]`, which replaces the default `#[test]` attribute for a parameterized test.
+
+**Example**
+
+```rust
+use yare::parameterized;
+
+#[parameterized(
+    zero_wait = { 0, 0 },
+    show_paused = { 500, 0 },
+)]
+#[test_macro(tokio::test(start_paused = true))]
+async fn test(wait: u64, time_elapsed: u128) {
+    let start = std::time::Instant::now();
+    tokio::time::sleep(tokio::time::Duration::from_millis(wait)).await;
+
+    assert_eq!(time_elapsed, start.elapsed().as_millis());
+}
 
 ```
-### Changed 
 
-* MSRV is now 1.62
-
-[2.1.0]: https://github.com/foresterre/yare/releases/tag/v2.1.0
+[Unreleased]: https://github.com/foresterre/storyteller/compare/v2.0.0...HEAD
 
 ## [2.0.0] - 2023-10-16
 
@@ -57,6 +70,7 @@ fn example_test(value: Result<u32, String>) -> Result<(), String> {
 ### Changed
 
 * **Breaking:** Parameter and argument count now must match exactly 
+* MSRV is now 1.56
 
 ### Removed
 
