@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+[Unreleased]: https://github.com/foresterre/storyteller/compare/v3.0.0...HEAD
+
+## [3.0.0] - 2024-03-08
+
 ### Added
 
 * Parameterized tests now parse and regenerate the `const`, `async`, `unsafe` and `extern` function qualifiers for test functions.
@@ -43,7 +47,7 @@ async fn test(wait: u64, time_elapsed: u128) {
 
 ```
 
-[Unreleased]: https://github.com/foresterre/storyteller/compare/v2.0.0...HEAD
+[3.0.0]: https://github.com/foresterre/storyteller/compare/v2.0.0...v3.0.0
 
 ## [2.0.0] - 2023-10-16
 
