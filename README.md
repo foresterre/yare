@@ -113,7 +113,7 @@ While the arguments above were simple values, any expression can be used as argu
 
 **Example**
 
-In the example below, we roll the dice 3 times to generate a seed for later roll_dice function calls.
+In the example below, we [roll](https://github.com/foresterre/yare/blob/main/src/tests/dice.rs) the dice 3 times, to generate a seed for later roll_dice function calls.
 The first argument `seed1` is a _function call_ to roll_dice. This randomness function is seeded with value `0`.
 The second argument `seed2` is a _block expression_. In the expression the roll_dice function is called twice.
 The test itself takes the maximum of `seed1` and `seed2`, rolls the die 1000 times, and checks that all values
@@ -124,6 +124,7 @@ use std::sync::atomic::{AtomicU32, Ordering};
 use yare::parameterized;
 
 #[parameterized(
+  // A complex input for the sake of showing that inputs are expressions...
   seeding_randomness_with_two_dice_rolls = 
   {
     roll_dice(&AtomicU32::new(0)),                              // <- This is an expression (a function call)
