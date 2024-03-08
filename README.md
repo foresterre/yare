@@ -22,7 +22,7 @@ Test cases can be defined using the 'parameterized' attribute instead of the 'te
 * [Introduction](#yare-)
 * [Examples](#examples-back-to-top)
 * [Arguments are expressions](#arguments-are-expressions-back-to-top)
-* [Custom test macro (e.g. tokio::test)](#custom-test-macro-e-g-tokio-test-back-to-top)
+* [Custom test macro (e.g. tokio::test)](#custom-test-macro-eg-tokiotest-back-to-top)
 * [Return types](#return-types-back-to-top)
 * [Function qualifiers](#function-qualifiers-back-to-top)
 * [Global #[parameterized(,,,)] import](#globally-importing-parameterized-back-to-top)
