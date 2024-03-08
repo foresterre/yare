@@ -1,6 +1,7 @@
 //! # Yare
 //!
 //! Documentation can be found [here](https://github.com/foresterre/yare).
+#![deny(clippy::all)]
 
 #[macro_use]
 extern crate syn;

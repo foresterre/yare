@@ -1,12 +1,33 @@
 use syn::spanned::Spanned;
 
 pub struct TestFn {
+    attributes: Vec<Attribute>,
     fun: ::syn::ItemFn,
 }
 
 impl TestFn {
-    pub fn attributes(&self) -> &[::syn::Attribute] {
-        &self.fun.attrs
+    pub fn attributes(&self) -> Vec<::syn::Attribute> {
+        let mut parsed_attr = self
+            .attributes
+            .iter()
+            .filter_map(Attribute::to_normal)
+            .collect::<Vec<_>>();
+
+        parsed_attr.extend(self.fun.attrs.iter().cloned());
+
+        parsed_attr
+    }
+
+    pub fn test_macro_attribute(&self) -> ::syn::Meta {
+        self.attributes
+            .iter()
+            .find_map(Attribute::to_test_macro)
+            .unwrap_or_else(|| {
+                ::syn::Meta::Path(::syn::Path::from(::syn::Ident::new(
+                    "test",
+                    ::proc_macro2::Span::call_site(),
+                )))
+            })
     }
 
     pub fn visibility(&self) -> &::syn::Visibility {
@@ -64,6 +85,17 @@ impl TestFn {
 impl ::syn::parse::Parse for TestFn {
     fn parse(input: ::syn::parse::ParseStream) -> ::syn::parse::Result<Self> {
         Ok(TestFn {
+            attributes: input
+                .call(::syn::Attribute::parse_outer)?
+                .into_iter()
+                .map(|attr| {
+                    if attr.path().is_ident("test_macro") {
+                        attr.parse_args::<::syn::Meta>().map(Attribute::TestMacro)
+                    } else {
+                        Ok(Attribute::Normal(attr))
+                    }
+                })
+                .collect::<::syn::Result<Vec<_>>>()?,
             fun: input.parse()?,
         })
     }
@@ -80,5 +112,28 @@ impl ::std::fmt::Debug for TestFn {
         }
 
         f.write_str(")")
+    }
+}
+
+enum Attribute {
+    /// A regular attribute, which isn't named "test_macro"
+    Normal(::syn::Attribute),
+    // An attribute named "test_macro"
+    TestMacro(::syn::Meta),
+}
+
+impl Attribute {
+    fn to_normal(&self) -> Option<::syn::Attribute> {
+        match self {
+            Attribute::Normal(inner) => Some(inner.clone()),
+            _ => None,
+        }
+    }
+
+    fn to_test_macro(&self) -> Option<::syn::Meta> {
+        match self {
+            Attribute::TestMacro(inner) => Some(inner.clone()),
+            _ => None,
+        }
     }
 }
