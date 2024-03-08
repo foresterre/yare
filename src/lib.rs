@@ -1,4 +1,5 @@
 #![doc = include_str!("../README.md")]
+#![deny(clippy::all)]
 
 extern crate yare_macro as yare;
 

@@ -71,6 +71,7 @@ pub struct TestCase {
 
 impl TestCase {
     pub fn to_token_stream(&self, test_fn: &TestFn) -> Result<::proc_macro2::TokenStream> {
+        let test_meta = test_fn.test_macro_attribute();
         // fn attributes, e.g. #[require(x < 5)]
         let attributes = test_fn.attributes();
         // fn visibility, e.g. pub, pub(in crate::some)
@@ -95,7 +96,7 @@ impl TestCase {
         let body = test_fn.body();
 
         Ok(::quote::quote! {
-            #[test]
+            #[#test_meta]
             #(#attributes)*
             #visibility #constness #asyncness #unsafety #abi fn #identifier() #return_type {
                 #bindings
