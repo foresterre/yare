@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/foresterre/storyteller/compare/v3.0.0...HEAD
+[Unreleased]: https://github.com/foresterre/yare/compare/v3.0.0...HEAD
 
 ## [3.0.0] - 2024-03-08
 
@@ -47,7 +47,7 @@ async fn test(wait: u64, time_elapsed: u128) {
 
 ```
 
-[3.0.0]: https://github.com/foresterre/storyteller/compare/v2.0.0...v3.0.0
+[3.0.0]: https://github.com/foresterre/yare/releases/tag/v3.0.0
 
 ## [2.0.0] - 2023-10-16
 
