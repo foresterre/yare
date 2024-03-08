@@ -6,7 +6,6 @@ use yare::parameterized;
 )]
 #[test_macro(tokio::test(start_paused = true))]
 async fn test(wait: u64, time_elapsed: u128) {
-    // tokio::time::pause();
     let start = std::time::Instant::now();
     tokio::time::sleep(tokio::time::Duration::from_millis(wait)).await;
 
