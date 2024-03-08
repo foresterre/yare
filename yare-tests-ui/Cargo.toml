@@ -1,0 +1,19 @@
+[package]
+name = "yare-ui-tests"
+version = "0.0.0"
+edition = "2021"
+publish = false
+autotests = false
+
+[[test]]
+name = "tests"
+path = "tests/cases.rs"
+
+[dependencies]
+proc-macro2 = "1"
+quote = "1"
+syn = { version = "2", features = ["full"] }
+
+[dev-dependencies]
+trybuild = "1"
+yare = { path = "../" }

@@ -16,4 +16,4 @@ rust-version = "1.62"
 yare-macro = { path = "yare-macro", version = "2.0.0" }
 
 [workspace]
-members = ["yare-macro"]
+members = ["yare-macro", "yare-tests-ui"]

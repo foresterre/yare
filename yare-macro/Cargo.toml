@@ -10,21 +10,12 @@ repository = "https://github.com/foresterre/yare"
 readme = "readme.md"
 keywords = ["parameterized", "attribute", "test", "unit-test", "test-case"]
 categories = ["development-tools", "development-tools::testing"]
-
-autotests = false
-rust-version = "1.62"
+rust-version = "1.56"
 
 [lib]
 proc-macro = true
-
-[[test]]
-name = "tests"
-path = "tests/cases.rs"
 
 [dependencies]
 proc-macro2 = "1"
 quote = "1"
 syn = { version = "2", features = ["full"] }
-
-[dev-dependencies]
-trybuild = "1"
