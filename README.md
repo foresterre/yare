@@ -5,13 +5,12 @@ Patameterized test cases are defined using the 'parameterized' attribute instead
 
 **Features**
 
-- **Parameterization:** Specify different inputs to test multiple scenarios with a single test definition.
-- **Flexible:** Parameterized test case arguments are expressions.
-- **Out of the box experience:** Works with any Rust version out of the box. No custom test harness necessary.
-- **Reusable:** Promotes code reuse by defining test cases once and using them with different parameters across multiple
-  tests.
-- **Readable:** Maintains readability by using a familiar Rustic attribute syntax.
-- **Identifiable:** Each test case has a user defined name which can be referred back to, and can be used to run
+- **Parameterized Testing:** Specify different inputs to test multiple scenarios with a single test definition.
+- **Be flexible:** Arguments provided to parameterized test cases are expressions. 
+- **Works out of the box:** Works with any Rust version out of the box. No custom test harness necessary.
+- **Concise yet comprehensive:** Minimalstic doesn't need to mean 'featureless'.    
+- **Readable:** Maintains code readability by using a familiar Rustic attribute syntax.
+- **Promotes :** Each test case has a user defined name which can be referred back to, and can be used to run
   individual test cases.
 - **Battle tested:** Used for years in tests of
   the [cargo-msrv](https://crates.io/crates/cargo-msrv), [bisector](https://crates.io/crates/bisector)
