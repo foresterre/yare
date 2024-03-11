@@ -9,7 +9,7 @@ Patameterized test cases are defined using the 'parameterized' attribute instead
 - **Be flexible:** Arguments provided to parameterized test cases are expressions. 
 - **Works out of the box:** Works with any Rust version out of the box. No custom test harness necessary.
 - **Concise yet comprehensive:** Minimalstic doesn't need to mean 'featureless'.    
-- **Readable:** Maintains code readability by using a familiar Rustic attribute syntax.
+- **Familiar syntax:** Maintains code readability with familiar Rustic syntax.
 - **Promotes :** Each test case has a user defined name which can be referred back to, and can be used to run
   individual test cases.
 - **Battle tested:** Used for years in tests of
