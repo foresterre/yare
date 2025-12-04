@@ -1,4 +1,4 @@
-use crate::test_fn::TestFn;
+use greenhouse::TestFn;
 use quote::format_ident;
 use std::fmt::Formatter;
 use syn::braced;
