@@ -10,7 +10,7 @@ repository = "https://github.com/foresterre/yare"
 readme = "readme.md"
 keywords = ["parameterized", "attribute", "test", "unit-test", "test-case"]
 categories = ["development-tools", "development-tools::testing"]
-rust-version = "1.56"
+rust-version = "1.68"
 
 [lib]
 proc-macro = true
