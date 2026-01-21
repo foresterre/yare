@@ -1,27 +1,24 @@
 [advisories]
+version = 2
 db-urls = ["https://github.com/rustsec/advisory-db"]
 
-vulnerability = "deny"
-unmaintained = "warn"
+unmaintained = "all"
+unsound = "all"
 yanked = "warn"
-notice = "warn"
 ignore = [
     #"RUSTSEC-0000-0000",
 ]
 
 [licenses]
-# The lint level for crates which do not have a detectable license
-unlicensed = "deny"
+version = 2
 # List of explictly allowed licenses
 allow = [
     "MIT",
     "Apache-2.0",
-    "Unicode-DFS-2016"
+    "Unicode-3.0",
 ]
 
 # Lint level for licenses considered copyleft
-copyleft = "deny"
-default = "deny"
 confidence-threshold = 0.925
 
 [bans]
